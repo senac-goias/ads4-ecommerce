@@ -1,0 +1,59 @@
+#III - Configuracaoes - 12 factor apps
+#Tudo que usa o valor @ esta referenciando o arquivo pom.xml
+project:
+  name: '@project.artifactId@'
+  version: '@project.version@'
+  description: '@project.description@'
+info:
+  build:
+    artifact: "@project.artifactId@"
+    name: "@project.name@"
+    description: '@project.description@'
+    version: '@project.version@'
+application:
+  title: ${project.name}
+  version: ${project.version}
+
+#springdoc:
+#  swagger-ui:
+#    path: "/swagger-ui.html"
+
+spring:
+  output:
+    ansi:
+      enabled: ${SPRING_OUTPUT_ANSI_ENABLE:always}
+  banner:
+    charset: ${SPRING_BANNER_CHARSET:UTF-8}
+    location: ${SPRING_BANNER_LOCATION:classpath:/banner.txt}
+
+  #Database sempre que adicionar um banco vc precisa addionar a dependencia no pom.xml
+  datasource:
+    driver-class-name: ${SPRING_DRIVER_CLASS_NAME:org.postgresql.Driver}
+    url: ${DATABASE_JDBC_URL:jdbc:postgresql://10.88.0.2:5432/postgres}
+    username: ${DATABASE_USERNAME:postgres}
+    password: ${DATABASE_PASSWORD:123456}
+  jpa:
+    hibernate:
+      ddl-auto: none #create-drop
+    show-sql: true #Opcao para apresentar a execucao de SQL no projeto.
+    open-in-view: false
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    database: postgresql
+    generate-ddl: true #Cria DDDL (Crias a instrucoes de criacao/alteracao de tabela)
+    properties:
+      hibernate:
+        format_sql: false
+
+
+#Logging
+logging:
+  level:
+    br.edu.ipog.backend2.app: debug
+    org.springframework.web: info
+    org:
+      hibernate:
+        orm.jdbc.bind: trace
+        SQL: info
+        type: trace
+        #type:
+        #  descriptor.sql: trace
